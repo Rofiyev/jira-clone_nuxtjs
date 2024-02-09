@@ -6,5 +6,10 @@ useSeoMeta({
 </script>
 
 <template>
-  <h1>Home Page</h1>
+  <!-- HERO SECTION -->
+  <section
+    class="flex items-center justify-between h-[100vh] pt-[10vh] gap-4 bg-gradient-to-t from-white dark:from-slate-900 to-blue-800"
+  >
+    Home Page
+  </section>
 </template>

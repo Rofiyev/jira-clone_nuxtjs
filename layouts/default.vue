@@ -1,8 +1,8 @@
 <script lang="ts" setup></script>
 
 <template>
-  <div>Layout</div>
-  <main>
+  <LayoutsMainNavbar />
+  <main class="min-h-screen bg-white dark:bg-slate-800">
     <slot />
   </main>
 </template>
