@@ -1,5 +1,11 @@
 <template>
-  <div>
+  <NuxtLayout>
     <NuxtPage />
-  </div>
+  </NuxtLayout>
 </template>
+
+<style>
+* {
+  font-family: sans-serif;
+}
+</style>

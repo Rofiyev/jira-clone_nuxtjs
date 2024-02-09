@@ -1,5 +1,7 @@
 <script setup lang="ts">
 const { params } = useRoute();
+definePageMeta({});
+useSeoMeta({ title: `Post ID: ${params.id}` });
 </script>
 
 <template>

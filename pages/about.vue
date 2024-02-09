@@ -1,5 +1,9 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+useSeoMeta({
+  title: "Nuxt JS - About",
+});
+</script>
 
 <template>
-  <div>About Page</div>
+  <h1>About Page</h1>
 </template>
