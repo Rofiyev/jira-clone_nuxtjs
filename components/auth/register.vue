@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import type { FormError, FormSubmitEvent } from "#ui/types";
+import type { IRegisterForm } from "~/types";
+import { ACCOUNT, UNIQUE_ID } from "~/libs/appwrite";
 
 defineProps({
   toggleLogin: {
@@ -8,13 +10,13 @@ defineProps({
   },
 });
 
-const state = reactive({
-  name: undefined,
-  email: undefined,
-  password: undefined,
+const state = reactive<IRegisterForm>({
+  name: "",
+  email: "",
+  password: "",
 });
 
-const validate = (state: any): FormError[] => {
+const validate = (state: IRegisterForm): FormError[] => {
   const errors = [];
   if (!state.name) errors.push({ path: "name", message: "Name is required!" });
   if (!state.email)
@@ -24,9 +26,15 @@ const validate = (state: any): FormError[] => {
   return errors;
 };
 
-async function onSubmit(event: FormSubmitEvent<any>) {
-  // Do something with data
-  console.log(event.data);
+async function onSubmit(event: FormSubmitEvent<IRegisterForm>) {
+  const { name, email, password } = event.data;
+
+  try {
+    const response = await ACCOUNT.create(UNIQUE_ID, email, password, name);
+    console.log(response);
+  } catch (error) {
+    console.log(error);
+  }
 }
 </script>
 

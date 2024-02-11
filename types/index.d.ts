@@ -6,3 +6,11 @@ export interface ILink {
   route: string;
   variant: UButtonType;
 }
+
+export interface ILoginForm {
+  email: string;
+  password: string;
+}
+export interface IRegisterForm extends ILoginForm {
+  name: string;
+}
