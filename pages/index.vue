@@ -20,7 +20,7 @@ useSeoMeta({
           <h1 class="text-5xl">
             Move fast, stay aligned, and build better - together
           </h1>
-          <p class="text-lg opacity-80">
+          <p class="text-lg opacity-80 my-2">
             The #1 software development tool used by agile teams
           </p>
 
@@ -161,5 +161,31 @@ useSeoMeta({
       </UContainer>
     </section>
     <!-- SERVICES SECTION end -->
+
+    <!-- FOOTER SECTION start -->
+    <footer class="dark:bg-black bg-white px-8 pt-8 pb-4">
+      <UContainer class="container mx-auto">
+        <div class="flex items-center justify-between">
+          <NuxtLink to="/" class="flex items-center space-x-1">
+            <NuxtImg src="/logo.svg" width="40" height="40" />
+            <span class="font-semibold">Jira Software</span>
+          </NuxtLink>
+
+          <p>Copyright ©{{ new Date().getFullYear() }} Atlassian</p>
+
+          <div class="flex gap-1">
+            <NuxtLink
+              class="cursor-pointer flex gap-1 items-center"
+              to="https://t.me/rof1yev/"
+              target="_blank"
+            >
+              <LogosTelegram />
+              <span>Rofiyev D.</span>
+            </NuxtLink>
+          </div>
+        </div>
+      </UContainer>
+    </footer>
+    <!-- FOOTER SECTION end -->
   </main>
 </template>
