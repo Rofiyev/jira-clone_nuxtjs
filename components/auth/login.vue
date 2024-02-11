@@ -1,5 +1,8 @@
 <script setup lang="ts">
 import type { FormError, FormSubmitEvent } from "#ui/types";
+import { ACCOUNT } from "~/libs/appwrite";
+import { useAuthStore } from "~/store/auth.store";
+import type { ILoginForm } from "~/types";
 
 defineProps({
   toggleLogin: {
@@ -8,12 +11,19 @@ defineProps({
   },
 });
 
-const state = reactive({
-  email: undefined,
-  password: undefined,
+const router = useRouter();
+const toast = useToast();
+const authStore = useAuthStore();
+
+const isLoading = ref(false);
+const error = ref("");
+
+const state = reactive<ILoginForm>({
+  email: "",
+  password: "",
 });
 
-const validate = (state: any): FormError[] => {
+const validate = (state: ILoginForm): FormError[] => {
   const errors = [];
   if (!state.email)
     errors.push({ path: "email", message: "Email is required!" });
@@ -22,13 +32,38 @@ const validate = (state: any): FormError[] => {
   return errors;
 };
 
-async function onSubmit(event: FormSubmitEvent<any>) {
-  // Do something with data
-  console.log(event.data);
+async function onSubmit(event: FormSubmitEvent<ILoginForm>) {
+  isLoading.value = true;
+  const { email, password } = event.data;
+
+  try {
+    await ACCOUNT.createEmailSession(email, password);
+    const { email: emailAcc, $id, status, name } = await ACCOUNT.get();
+    authStore.set({ email: emailAcc, id: $id, name, status });
+
+    toast.add({
+      title: "Logged in",
+      description: "You are now logged in",
+    });
+    await router.push("/");
+  } catch (e: any) {
+    error.value = e.message;
+    console.log(e);
+  } finally {
+    isLoading.value = false;
+  }
 }
 </script>
 
 <template>
+  <UAlert
+    icon="i-heroicons-command-line"
+    :description="error"
+    title="Error"
+    v-if="error"
+    color="red"
+    variant="outline"
+  />
   <UForm
     :validate="validate"
     :state="state"
@@ -52,8 +87,17 @@ async function onSubmit(event: FormSubmitEvent<any>) {
       >
     </div>
 
-    <UButton type="submit" color="blue" class="w-full block" size="lg">
-      Submit
+    <UButton
+      :disabled="isLoading"
+      type="submit"
+      color="blue"
+      class="w-full block"
+      size="lg"
+    >
+      <template v-if="isLoading">
+        <Icon name="svg-spinners:3-dots-fade" class="w-5 h-5" />
+      </template>
+      <template v-else>Submit</template>
     </UButton>
   </UForm>
 </template>

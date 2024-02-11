@@ -34,7 +34,7 @@ useSeoMeta({
     <!-- HERO SECTION end -->
 
     <!-- TAB SECTION start -->
-    <section class="dark:bg-black bg-white px-8 min-h-[100vh]">
+    <section class="dark:bg-black bg-white px-8">
       <UContainer class="container mx-auto">
         <h1 class="text-4xl font-medium px-4">
           All from a single source of truth
@@ -68,7 +68,7 @@ useSeoMeta({
     <!-- TAB SECTION end -->
 
     <!-- SERVICES SECTION start -->
-    <section class="dark:bg-black bg-white px-8 min-h-[100vh]">
+    <section class="dark:bg-black bg-white px-8 pb-10">
       <UContainer class="container mx-auto">
         <h1 class="text-4xl font-medium text-center pt-20">Easier then ever</h1>
         <div class="flex items-center justify-between max-w-xl mx-auto">
@@ -161,6 +161,8 @@ useSeoMeta({
       </UContainer>
     </section>
     <!-- SERVICES SECTION end -->
+
+    <UDivider type="dashed" />
 
     <!-- FOOTER SECTION start -->
     <footer class="dark:bg-black bg-white px-8 pt-8 pb-4">

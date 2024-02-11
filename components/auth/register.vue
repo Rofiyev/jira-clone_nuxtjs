@@ -3,12 +3,17 @@ import type { FormError, FormSubmitEvent } from "#ui/types";
 import type { IRegisterForm } from "~/types";
 import { ACCOUNT, UNIQUE_ID } from "~/libs/appwrite";
 
-defineProps({
+const props = defineProps({
   toggleLogin: {
     type: Function,
     required: true,
   },
 });
+
+const toast = useToast();
+
+const isLoading = ref(false);
+const error = ref("");
 
 const state = reactive<IRegisterForm>({
   name: "",
@@ -27,18 +32,35 @@ const validate = (state: IRegisterForm): FormError[] => {
 };
 
 async function onSubmit(event: FormSubmitEvent<IRegisterForm>) {
+  isLoading.value = true;
   const { name, email, password } = event.data;
 
   try {
-    const response = await ACCOUNT.create(UNIQUE_ID, email, password, name);
-    console.log(response);
-  } catch (error) {
-    console.log(error);
+    await ACCOUNT.create(UNIQUE_ID, email, password, name);
+    // await ACCOUNT.createEmailSession(email, password);
+    props.toggleLogin();
+    toast.add({
+      title: "Account created",
+      description: "You can now login with your new account",
+    });
+  } catch (e: any) {
+    error.value = e.message;
+    console.log(e);
+  } finally {
+    isLoading.value = false;
   }
 }
 </script>
 
 <template>
+  <UAlert
+    icon="i-heroicons-command-line"
+    :description="error"
+    title="Error"
+    v-if="error"
+    color="red"
+    variant="outline"
+  />
   <UForm
     :validate="validate"
     :state="state"
@@ -66,8 +88,17 @@ async function onSubmit(event: FormSubmitEvent<IRegisterForm>) {
       >
     </div>
 
-    <UButton type="submit" color="blue" class="w-full block" size="lg">
-      Submit
+    <UButton
+      :disabled="isLoading"
+      type="submit"
+      color="blue"
+      class="w-full block"
+      size="lg"
+    >
+      <template v-if="isLoading">
+        <Icon name="svg-spinners:3-dots-fade" class="w-5 h-5" />
+      </template>
+      <template v-else>Submit</template>
     </UButton>
   </UForm>
 </template>

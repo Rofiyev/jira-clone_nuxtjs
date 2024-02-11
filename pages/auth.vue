@@ -22,8 +22,20 @@ const toggleLogin = () => (isLogin.value = !isLogin.value);
     <div
       class="absolute inset-0 w-full h-full z-20 dark:bg-black/40 bg-white/20"
     ></div>
-    <UCard class="z-50 w-1/2 relative" :ui="{ body: { base: 'flex gap-4' } }">
+    <UCard
+      class="z-50 w-1/2 max-w-[900px] relative"
+      :ui="{ body: { base: 'md:flex gap-4' } }"
+    >
       <div class="space-y-4 flex-1">
+        <NuxtLink to="/">
+          <UButton
+            icon="i-heroicons-chevron-left"
+            size="sm"
+            color="gray"
+            variant="solid"
+            label="Home"
+          />
+        </NuxtLink>
         <h1 class="text-2xl font-bold">
           <template v-if="isLogin">Login</template>
           <template v-else>Register</template>
