@@ -1,10 +1,13 @@
 <script setup lang="ts">
 import { tabs, templates } from "~/constants";
+import { useAuthStore } from "~/store/auth.store";
 
 useSeoMeta({
   title: "Jira Software",
   description: "Nuxt JS Jira clone | @rof1yev",
 });
+
+const { currentUser } = useAuthStore();
 </script>
 
 <template>
@@ -24,11 +27,18 @@ useSeoMeta({
             The #1 software development tool used by agile teams
           </p>
 
-          <NuxtLink to="/auth">
-            <UButton color="blue">Try it free</UButton>
-          </NuxtLink>
+          <template v-if="currentUser.status">
+            <NuxtLink to="/documents">
+              <UButton color="blue">Documents</UButton>
+            </NuxtLink>
+          </template>
+          <template v-else>
+            <NuxtLink to="/auth">
+              <UButton color="blue">Try it free</UButton>
+            </NuxtLink>
+          </template>
         </div>
-        <NuxtImg src="/hero.webp" />
+        <NuxtImg src="/hero.webp" width="800" />
       </UContainer>
     </section>
     <!-- HERO SECTION end -->
