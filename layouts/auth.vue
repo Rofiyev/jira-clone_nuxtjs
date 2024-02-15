@@ -1,11 +1,11 @@
 <script lang="ts" setup>
-import { useAuthStore } from "~/store/auth.store";
+import { useLoadingStore } from "~/store/loading.store";
 
-const { currentUser } = useAuthStore();
+const { isLoading } = useLoadingStore();
 </script>
 
 <template>
-  <LayoutsMainNavbar v-if="!currentUser.status" />
+  <LayoutsMainNavbar v-if="!isLoading" />
   <section>
     <slot />
   </section>

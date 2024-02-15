@@ -1,64 +1,13 @@
 <script lang="ts" setup>
 import type { ILink } from "~/types/index";
 import { useAuthStore } from "~/store/auth.store";
-import { ACCOUNT } from "~/libs/appwrite";
-import { useLoadingStore } from "~/store/loading.store";
 
-const router = useRouter();
-const { currentUser, clear } = useAuthStore();
-const loadingStore = useLoadingStore();
-
-const profileDetails = ref([
-  [
-    {
-      label: currentUser.status ? currentUser.name : "",
-      slot: "account",
-      disabled: true,
-    },
-  ],
-  [
-    {
-      label: "Settings",
-      icon: "i-heroicons-cog-8-tooth",
-      route: "/settings",
-    },
-    {
-      label: "Documentation",
-      icon: "i-heroicons-book-open",
-      route: "/documentation",
-    },
-  ],
-  [
-    {
-      label: "Sign out",
-      icon: "i-heroicons-arrow-left-on-rectangle",
-      route: "/logout",
-    },
-  ],
-]);
-
-watch(currentUser, (newVal) => {
-  if (newVal.status) {
-    profileDetails.value[0][0].label = newVal.name;
-  }
-});
+const { currentUser } = useAuthStore();
 
 const navbar_links = ref<ILink[]>([
   { id: 1, name: "Get if free", route: "/auth", variant: "solid" },
   { id: 2, name: "Sign In", route: "/auth", variant: "soft" },
 ]);
-
-const handleRoute = async (route: string) => {
-  loadingStore.isLoading = true;
-
-  if (route === "/logout") {
-    await ACCOUNT.deleteSession("current");
-    await router.push("/auth");
-    clear();
-  } else router.push(route);
-
-  loadingStore.isLoading = false;
-};
 </script>
 
 <template>
@@ -83,37 +32,7 @@ const handleRoute = async (route: string) => {
         <SharedColorMode />
 
         <template v-if="currentUser.status">
-          <UDropdown
-            :items="profileDetails"
-            :ui="{ item: { disabled: 'cursor-text select-text' } }"
-            :popper="{ placement: 'bottom-start' }"
-          >
-            <UAvatar
-              src="https://img.freepik.com/premium-vector/user-profile-icon-flat-style-member-avatar-vector-illustration-isolated-background-human-permission-sign-business-concept_157943-15752.jpg"
-            />
-
-            <template #account="{ item }">
-              <div class="text-left">
-                <p>Signed in as</p>
-                <p class="truncate font-medium text-gray-900 dark:text-white">
-                  {{ item.label }}
-                </p>
-              </div>
-            </template>
-
-            <template #item="{ item }">
-              <span
-                @click="handleRoute(item.route)"
-                class="truncate flex items-center justify-between w-full"
-              >
-                {{ item.label }}
-                <UIcon
-                  :name="item.icon"
-                  class="flex-shrink-0 h-4 w-4 text-gray-400 dark:text-gray-500 ms-auto"
-                />
-              </span>
-            </template>
-          </UDropdown>
+          <SharedUserBox />
         </template>
         <template v-else>
           <NuxtLink

@@ -28,8 +28,8 @@ const { currentUser } = useAuthStore();
           </p>
 
           <template v-if="currentUser.status">
-            <NuxtLink to="/documents">
-              <UButton color="blue">Documents</UButton>
+            <NuxtLink to="/dashboard">
+              <UButton color="blue">Dashboard</UButton>
             </NuxtLink>
           </template>
           <template v-else>

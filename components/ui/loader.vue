@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 useSeoMeta({
-  title: "Please wait",
+  title: "Loading...",
   description: "Loading...",
 });
 </script>
