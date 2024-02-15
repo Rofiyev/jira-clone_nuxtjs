@@ -26,11 +26,13 @@ onMounted(() => {
 
 <template>
   <UiLoader v-if="loadingStore.isLoading" />
-  <section v-else class="flex">
+  <section v-else>
     <LayoutsDashboardSidebar />
-    <main class="">
-      <LayoutsDashboardNavbar />
-      <slot />
+    <LayoutsDashboardNavbar />
+    <main class="min-h-screen bg-white dark:bg-slate-800 pl-72 pt-[10vh]">
+      <div class="p-4">
+        <slot />
+      </div>
     </main>
   </section>
 </template>
