@@ -6,9 +6,11 @@ useSeoMeta({
   title: "Authentication | Jira software",
   description: "Authentication | Jira software",
 });
+
 definePageMeta({
   layout: "auth",
 });
+
 const router = useRouter();
 const loadingStore = useLoadingStore();
 

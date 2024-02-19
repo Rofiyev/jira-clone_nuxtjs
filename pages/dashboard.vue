@@ -3,6 +3,7 @@ useSeoMeta({
   title: "Dashboard | Jira software",
   description: "Dashboard | Jira software",
 });
+
 definePageMeta({
   layout: "dashboard",
 });
@@ -21,7 +22,6 @@ onMounted(() => {
 });
 
 const { data, isLoading } = useStatusQuery();
-console.log(data);
 </script>
 
 <template>
