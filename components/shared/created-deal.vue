@@ -1,6 +1,25 @@
-<script lang="ts" setup>
+<script setup lang="ts">
 import type { FormError, FormSubmitEvent } from "#ui/types";
 import { useMutation } from "@tanstack/vue-query";
+import { COLLECTION_DEALS, DB_ID } from "~/constants";
+import { DATABASE, UNIQUE_ID } from "~/libs/appwrite";
+import { useAuthStore } from "~/store/auth.store";
+import type { ICreateDeals } from "~/types";
+
+const props = defineProps({
+  status: {
+    type: String,
+    default: "",
+    required: true,
+  },
+  refetch: {
+    type: Function,
+    required: true,
+  },
+});
+
+const toast = useToast();
+const { currentUser } = useAuthStore();
 
 const state = reactive({
   name: undefined,
@@ -9,15 +28,46 @@ const state = reactive({
 
 const validate = (state: any): FormError[] => {
   const errors = [];
-  if (!state.name) errors.push({ path: "name", message: "Name is required!" });
+  if (!state.name) errors.push({ path: "name", message: "Name is requierd" });
   if (!state.description)
-    errors.push({ path: "description", message: "Description is required!" });
+    errors.push({ path: "description", message: "Description is required" });
   return errors;
 };
 
-async function onSubmit(event: FormSubmitEvent<{}>) {}
+const { isPending, mutate } = useMutation({
+  mutationKey: ["create-deal"],
+  mutationFn: (data: ICreateDeals) =>
+    DATABASE.createDocument(DB_ID, COLLECTION_DEALS, UNIQUE_ID, data),
+  onSuccess: () => {
+    props.refetch();
+    state.name = undefined;
+    state.description = undefined;
+    toast.add({
+      title: "Success",
+      description: "Deal created successfully",
+    });
+  },
+  onError: () => {
+    toast.add({
+      title: "Error",
+      description: "Something went wrong",
+      color: "red",
+    });
+  },
+});
 
-const { isPending } = useMutation({});
+async function onSubmit(
+  event: FormSubmitEvent<{ name: string; description: string }>
+) {
+  const { name, description } = event.data;
+
+  mutate({
+    name,
+    description,
+    status: props.status,
+    userId: currentUser.id,
+  });
+}
 </script>
 
 <template>
@@ -31,7 +81,7 @@ const { isPending } = useMutation({});
     </UButton>
 
     <template #panel>
-      <div class="bg-gray-900 w-80 p-4">
+      <div class="p-4 w-80 dark:bg-gray-900 bg-gray-100">
         <UForm
           :validate="validate"
           :state="state"
@@ -58,8 +108,8 @@ const { isPending } = useMutation({});
               <Icon name="svg-spinners:3-dots-fade" class="w-5 h-5" />
             </template>
             <template v-else>Submit</template>
-          </UButton></UForm
-        >
+          </UButton>
+        </UForm>
       </div>
     </template>
   </UPopover>

@@ -2,10 +2,10 @@ import { useQuery } from "@tanstack/vue-query";
 import { Query } from "appwrite";
 import { COLLECTION_DEALS, DB_ID, status } from "~/constants";
 import { DATABASE } from "~/libs/appwrite";
-import { useAuthStore } from "~/store/auth.store";
-import type { IDeal, IColumn } from "~/types";
+import type { IColumn, IDeal } from "~/types";
+import { useAuthStore } from "./../store/auth.store";
 
-export const useStatusQuery = () => {
+export const useStatus = () => {
   const { currentUser } = useAuthStore();
 
   return useQuery({
@@ -15,7 +15,7 @@ export const useStatusQuery = () => {
         Query.equal("userId", currentUser.id),
       ]),
     select: (data) => {
-      const newBoard: IColumn[] = status.map((item: IColumn) => ({
+      const newBoard: IColumn[] = status.map((item) => ({
         ...item,
         items: [],
       }));
@@ -23,9 +23,7 @@ export const useStatusQuery = () => {
       const deals = data.documents as unknown as IDeal[];
 
       for (const deal of deals) {
-        const column: IColumn | undefined = newBoard.find(
-          (item: IColumn) => item.id === deal.status
-        );
+        const column = newBoard.find((item) => item.id === deal.status);
 
         if (column) {
           column.items.push({
@@ -36,8 +34,9 @@ export const useStatusQuery = () => {
             $id: deal.$id,
           });
         }
-        return newBoard;
       }
+
+      return newBoard;
     },
   });
 };
