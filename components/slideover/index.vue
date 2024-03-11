@@ -21,11 +21,12 @@ const isOpen = computed({
     >
       <template #header>
         <div class="flex items-center justify-between">
-          <h3
-            class="text-base font-semibold leading-6 text-gray-900 dark:text-white"
-          >
-            Slideover
-          </h3>
+          <div class="flex">
+            <NuxtLink to="/" class="flex items-center space-x-1 pl-2">
+              <NuxtImg src="/logo.svg" width="40" height="40" />
+              <span class="text-xl font-medium">Jira Software</span>
+            </NuxtLink>
+          </div>
           <UButton
             color="gray"
             variant="ghost"
@@ -37,6 +38,10 @@ const isOpen = computed({
       </template>
 
       <Placeholder class="h-full" />
+
+      <SlideoverTop />
+
+      <SlideoverComments />
     </UCard>
   </USlideover>
 </template>
