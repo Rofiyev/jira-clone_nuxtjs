@@ -1,11 +1,15 @@
-<script lang="ts" setup></script>
+<script lang="ts" setup>
+import { useComments } from "~/query/use-comments";
+
+const { data, refetch, isLoading } = useComments();
+</script>
 
 <template>
   <div class="mt-3">Comments</div>
   <UForm class="relative h-12">
-    <UFormGroup name="text">
+    <UFormGro up na name="" me="text">
       <UInput size="lg" placeholder="Create a comment..." color="blue" />
-    </UFormGroup>
+    </UFormGro>
     <div class="absolute top-0 right-0 bottom-0">
       <UButton color="blue" size="lg" type="submit">
         <Icon name="svg-spinners:3-dots-fade" class="w-5 h-5" />
@@ -13,6 +17,7 @@
       </UButton>
     </div>
   </UForm>
+
 
   <div class="flex items-center space-x-4 mt-8">
     <USkeleton class="h-12 w-12" :ui="{ rounded: 'rounded-full' }" />
