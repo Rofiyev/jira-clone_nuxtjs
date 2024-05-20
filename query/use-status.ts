@@ -3,7 +3,7 @@ import { Query } from "appwrite";
 import { COLLECTION_DEALS, DB_ID, status } from "~/constants";
 import { DATABASE } from "~/libs/appwrite";
 import type { IColumn, IDeal } from "~/types";
-import { useAuthStore } from "./../store/auth.store";
+import { useAuthStore } from "../store/auth.store";
 
 export const useStatus = () => {
   const { currentUser } = useAuthStore();

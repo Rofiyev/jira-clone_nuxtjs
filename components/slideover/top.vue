@@ -56,5 +56,6 @@ const toggleExpanded = () => (isExpended.value = !isExpended.value);
         </div>
       </template>
     </SlideoverLabel>
+
   </div>
 </template>

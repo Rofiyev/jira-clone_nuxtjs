@@ -10,7 +10,7 @@ definePageMeta({
 
 import { ACCOUNT, DATABASE } from "~/libs/appwrite";
 import { useLoadingStore } from "~/store/loading.store";
-import { useStatus } from "~/query/use-status-query";
+import { useStatus } from "~/query/use-status";
 import { onMounted } from "vue";
 import { useRouter } from "vue-router";
 import { useMutation } from "@tanstack/vue-query";
@@ -102,6 +102,7 @@ const handleDrop = (column: IColumn) => {
         draggable="true"
         @dragstart="() => handleDragStart(deal, column)"
         :class="isPending && 'opacity-50 cursor-not-allowed'"
+        @click="currentDealStore.set(deal)"
       >
         <div class="flex items-center space-x-2" role="button">
           <span class="font-bold text-lg uppercase">{{ deal.name }}</span>
@@ -112,16 +113,6 @@ const handleDrop = (column: IColumn) => {
         <div class="opacity-55 text-sm line-clamp-1">
           {{ deal.description }}
         </div>
-
-        <UButton
-          color="blue"
-          class="w-full mt-3 group"
-          variant="ghost"
-          @click="currentDealStore.set(deal)"
-        >
-          <span class="font-medium">More details</span>
-          <Icon name="" class="group-hover:translate-x-2 transition" />
-        </UButton>
       </div>
     </div>
 
