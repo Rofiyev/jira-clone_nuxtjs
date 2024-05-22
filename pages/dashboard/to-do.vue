@@ -33,7 +33,10 @@ const handleDelete = (id: string) => {
 
   <UDivider class="my-2" />
 
-  <div class="grid grid-cols-4 gap-2" v-if="isLoading">
+  <div
+    class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-2"
+    v-if="isLoading"
+  >
     <div
       class="my-3 dark:bg-gray-900 bg-gray-300 rounded-md p-2 animation"
       v-for="(item, index) in Array.from({ length: 4 })"
@@ -48,7 +51,9 @@ const handleDelete = (id: string) => {
 
   <div v-else>
     <div v-if="data?.length">
-      <div class="grid grid-cols-4 gap-2">
+      <div
+        class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-2"
+      >
         <div
           class="my-3 dark:bg-gray-900 bg-gray-100 rounded-md p-2 animation"
           v-for="item in data"

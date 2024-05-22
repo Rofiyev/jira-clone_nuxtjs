@@ -1,4 +1,11 @@
-<script lang="ts" setup></script>
+<script lang="ts" setup>
+const { toggleOpen } = defineProps({
+  toggleOpen: {
+    type: Function,
+    required: true,
+  },
+});
+</script>
 
 <template>
   <div
@@ -10,7 +17,7 @@
         <span class="text-2xl font-medium">Jira software</span>
       </NuxtLink>
       <div>
-        <SharedSidebarItem />
+        <SharedSidebarItem :toggle-open="toggleOpen" />
       </div>
     </div>
   </div>

@@ -4,12 +4,11 @@ import { useMutation } from "@tanstack/vue-query";
 import { COLLECTION_DEALS, DB_ID } from "~/constants";
 import { DATABASE, UNIQUE_ID } from "~/libs/appwrite";
 import { useAuthStore } from "~/store/auth.store";
-import type { ICreateDeals } from "~/types";
+import { EnumStatus, type ICreateDeals } from "~/types";
 
 const props = defineProps({
   status: {
     type: String,
-    default: "",
     required: true,
   },
   refetch: {
@@ -71,10 +70,10 @@ async function onSubmit(
 </script>
 
 <template>
-  <UPopover :popper="{ placement: 'right' }">
+  <UPopover :popper="{ placement: 'bottom' }">
     <UButton
       variant="ghost"
-      class="opacity-75 hover:opacity-100 mx-auto mt-3"
+      class="opacity-75 hover:opacity-100 mx-auto mt-2"
       color="blue"
     >
       <Icon name="radix-icons:plus-circled" size="35" />

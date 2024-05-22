@@ -59,7 +59,10 @@ const handleDrop = (column: IColumn) => {
 };
 </script>
 <template>
-  <div class="grid grid-cols-4 gap-2 mt-12" v-if="isLoading">
+  <div
+    class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-2 mt-12"
+    v-if="isLoading"
+  >
     <USkeleton class="h-12 dark:bg-gray-900 bg-gray-100" />
     <USkeleton class="h-12 dark:bg-gray-900 bg-gray-100" />
     <USkeleton class="h-12 dark:bg-gray-900 bg-gray-100" />
@@ -71,7 +74,10 @@ const handleDrop = (column: IColumn) => {
     <UiDealsLoader />
   </div>
 
-  <div class="grid grid-cols-4 gap-2 mt-12" v-else>
+  <div
+    class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-2 mt-6 xl:mt-12"
+    v-else
+  >
     <div
       v-for="column in data"
       :key="column.id"
@@ -83,7 +89,7 @@ const handleDrop = (column: IColumn) => {
         'border-l-2 border-r-2 border-dotted h-screen dark:border-gray-900 border-gray-200'
       "
     >
-      <UButton class="w-full h-12" color="blue" variant="outline">
+      <UButton class="w-full h-10" color="blue" variant="outline">
         <div class="flex items-center space-x-2">
           <span class="font-bold">{{ column.name }}</span>
           <span class="text-sm text-neutral-500">{{

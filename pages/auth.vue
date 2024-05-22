@@ -23,6 +23,12 @@ onMounted(() => {
 const isLogin = ref(true);
 
 const toggleLogin = () => (isLogin.value = !isLogin.value);
+
+const onGoogle = () =>
+  ACCOUNT.createOAuth2Session("google", "http://localhost:3000");
+
+const onGithub = () =>
+  ACCOUNT.createOAuth2Session("hithub", "http://localhost:3000");
 </script>
 
 <template>
@@ -74,11 +80,11 @@ const toggleLogin = () => (isLogin.value = !isLogin.value);
       />
 
       <div class="space-y-4 flex flex-1 flex-col justify-center">
-        <UButton color="black" block size="lg">
+        <UButton color="black" block size="lg" @click="onGithub">
           <Icon name="mdi:github" class="w-5 h-5" />
           <span>Login with Github</span>
         </UButton>
-        <UButton color="black" block size="lg">
+        <UButton color="black" block size="lg" @click="onGoogle">
           <Icon name="ri:google-fill" class="w-5 h-5" />
           <span>Login with Google</span>
         </UButton>

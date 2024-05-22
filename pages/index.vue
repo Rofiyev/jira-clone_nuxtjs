@@ -14,12 +14,12 @@ const { currentUser } = useAuthStore();
   <main>
     <!-- HERO SECTION start -->
     <section
-      class="h-[100vh] bg-gradient-to-t from-white dark:from-black to-blue-500 dark:to-blue-800 px-8"
+      class="min-h-[100vh] bg-gradient-to-t from-white dark:from-black to-blue-500 dark:to-blue-800 px-0 md:px-8 pt-8 md:pb-0"
     >
       <UContainer
-        class="flex container mx-auto items-center justify-between gap-4 pt-[20vh]"
+        class="flex container mx-auto items-center justify-between gap-4 pt-[20vh] flex-col-reverse xl:flex-row"
       >
-        <div>
+        <div class="mt-6 xl:mt-0">
           <h1 class="text-5xl">
             Move fast, stay aligned, and build better - together
           </h1>
@@ -38,22 +38,24 @@ const { currentUser } = useAuthStore();
             </NuxtLink>
           </template>
         </div>
-        <NuxtImg src="/hero.webp" width="800" />
+        <NuxtImg src="/hero.webp" width="800" alt="Background image" />
       </UContainer>
     </section>
     <!-- HERO SECTION end -->
 
     <!-- TAB SECTION start -->
-    <section class="dark:bg-black bg-white px-8">
-      <UContainer class="container mx-auto">
+    <section class="dark:bg-black bg-white px-0 md:px-8 xl:px-8 pt-8">
+      <UContainer class="container mx-auto !h-full">
         <h1 class="text-4xl font-medium px-4">
           All from a single source of truth
         </h1>
 
         <UTabs :items="tabs" class="mt-6" :ui="{ list: { width: 'w-fit' } }">
           <template #item="{ item }">
-            <div class="flex justify-between items-center gap-6 mt-8">
-              <div class="w-[40%]">
+            <div
+              class="flex justify-between items-center gap-6 mt-8 flex-col xl:flex-row"
+            >
+              <div class="w-full xl:w-[40%]">
                 <h2 class="text-4xl font-bold">{{ item.label }}</h2>
                 <p class="mt-6 text-xl">{{ item.description }}</p>
 
@@ -69,7 +71,11 @@ const { currentUser } = useAuthStore();
                 </div>
               </div>
 
-              <NuxtImg :src="item.image" :alt="item.label" class="w-[70%]" />
+              <NuxtImg
+                :src="item.image"
+                :alt="item.label"
+                class="w-full xl:w-[70%]"
+              />
             </div>
           </template>
         </UTabs>
@@ -78,7 +84,7 @@ const { currentUser } = useAuthStore();
     <!-- TAB SECTION end -->
 
     <!-- SERVICES SECTION start -->
-    <section class="dark:bg-black bg-white px-8 pb-10">
+    <section class="dark:bg-black bg-white px-0 md:px-8 pb-10">
       <UContainer class="container mx-auto">
         <h1 class="text-4xl font-medium text-center pt-20">Easier then ever</h1>
         <div class="flex items-center justify-between max-w-xl mx-auto">
@@ -103,7 +109,7 @@ const { currentUser } = useAuthStore();
           </div>
         </div>
 
-        <div class="grid grid-cols-2 mt-20">
+        <div class="grid grid-cols-1 xl:grid-cols-2 mt-20">
           <div class="bg-blue-500 dark:bg-blue-800 p-8">
             <div class="flex flex-col space-y-2 items-center">
               <h1 class="text-2xl font-medium">
@@ -175,17 +181,18 @@ const { currentUser } = useAuthStore();
     <UDivider type="dashed" />
 
     <!-- FOOTER SECTION start -->
-    <footer class="dark:bg-black bg-white px-8 pt-8 pb-4">
+    <footer class="dark:bg-black bg-white px-0 md:px-8 pt-8 pb-4">
       <UContainer class="container mx-auto">
-        <div class="flex items-center justify-between">
-          <NuxtLink to="/" class="flex items-center space-x-1">
+        <div class="flex items-center justify-between flex-col md:flex-row">
+          <NuxtLink to="/" class="flex items-center space-x-1 mb-3 md:mb-0">
             <NuxtImg src="/logo.svg" width="40" height="40" />
             <span class="font-semibold">Jira Software</span>
           </NuxtLink>
 
-          <p>Copyright ©{{ new Date().getFullYear() }} Atlassian</p>
-
-          <div class="flex gap-1">
+          <p class="hidden md:block">
+            Copyright ©{{ new Date().getFullYear() }} Atlassian
+          </p>
+          <div class="/ gap-1 hidden md:flex">
             <NuxtLink
               class="cursor-pointer flex gap-1 items-center"
               to="https://t.me/rof1yev/"
@@ -194,6 +201,21 @@ const { currentUser } = useAuthStore();
               <LogosTelegram />
               <span>Rofiyev D.</span>
             </NuxtLink>
+          </div>
+
+          <div class="w-full flex !justify-between md:hidden">
+            <p>Copyright ©{{ new Date().getFullYear() }} Atlassian</p>
+
+            <div class="flex gap-1">
+              <NuxtLink
+                class="cursor-pointer flex gap-1 items-center"
+                to="https://t.me/rof1yev/"
+                target="_blank"
+              >
+                <LogosTelegram />
+                <span>Rofiyev D.</span>
+              </NuxtLink>
+            </div>
           </div>
         </div>
       </UContainer>
