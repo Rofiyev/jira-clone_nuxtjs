@@ -39,10 +39,16 @@ const navbar_links = ref<ILink[]>([
             v-for="link of navbar_links"
             :key="link.id"
             :to="link.route"
+            class="hidden md:inline-block"
           >
             <UButton color="blue" :variant="link.variant">{{
               link.name
             }}</UButton>
+          </NuxtLink>
+          <NuxtLink to="/auth" class="inline-block md:hidden">
+            <UButton color="blue" variant="solid">
+              <IconsArrow />
+            </UButton>
           </NuxtLink>
         </template>
       </div>

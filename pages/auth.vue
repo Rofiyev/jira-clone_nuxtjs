@@ -25,10 +25,10 @@ const isLogin = ref(true);
 const toggleLogin = () => (isLogin.value = !isLogin.value);
 
 const onGoogle = () =>
-  ACCOUNT.createOAuth2Session("google", "http://localhost:3000");
+  ACCOUNT.createOAuth2Session("google", "https://jira-clone-black.vercel.app");
 
 const onGithub = () =>
-  ACCOUNT.createOAuth2Session("hithub", "http://localhost:3000");
+  ACCOUNT.createOAuth2Session("hithub", "https://jira-clone-black.vercel.app");
 </script>
 
 <template>
